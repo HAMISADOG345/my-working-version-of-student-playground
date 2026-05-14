@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Playground</title>
+
+    <!--core CSS-->
+    <style>
+        :root {
+            
+            --primary:
+            --primary-hover:
+            --text: #f1f5f9;
+            --bg: #0f172a;
+            --text-muted: #94a3b8;
+            --surface: #1e293b;
+            --border: #334155;
+            --radius: 12px;
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6), 0 4px 6px -4px rgb(0 0 0 / 0.6);
+            --gradient-primary: linear-gradient(135deg, #263247 0%, #263247 100%);
+        }
+
+        .win-instance {
+            position: absolute;
+            z-index: 999;
+            background-color: var(--bg, #fff);
+            border: 3px solid var(--border, #0078d4);
+            width: 1000px;
+            border-radius: 12px;
+            box-shadow: 5px 5px 0px var(--surface, #ccc);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .win-instance.dragging {
+            transition: none !important;
+        }
+
+        .window-header {
+            padding: 8px 12px;
+            cursor: move;
+            background-color: var(--surface);
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-btn {
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 18px;
+        }
+
+        .content-area {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .Container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            background: var(--bg);
+            padding: 15px;
+            text-decoration: none;
+            color: var(--text-muted);
+            text-shadow: 3px 3px 0px var(--border);
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: transform 0.1s;
+            box-shadow: 3px 3px 0px var(--surface);
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            border-color: var(--border);
+        }
+
+        .card h1 { 
+            font-size: 14px; 
+            margin: 0; 
+        }
+    </style>
+    <!--core CSS-->
+
+    <style id="drifterCSS">
+        .bg-drift-container {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .drifting-text-layer {
+            transform: rotate(-25deg);
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            animation: driftDiagonal 30s linear infinite;
+        }
+
+        .line {
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.04);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: -10px -10px 0px var(--border);
+        }
+
+        .line:nth-child(even) {
+            margin-left: -1500px;
+        }
+
+        @keyframes driftDiagonal {
+            from { transform: rotate(-25deg) translate(0, 0); }
+            to { transform: rotate(-25deg) translate(1000px, 1000px); }
+        }
+    </style>
+    
+    <style id="blockerCSS">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            color: var(--text);
+            background-color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .access-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: opacity 0.3s, transform 0.3s;
+            height: 500;
+            width: 900;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: rgb(185, 176, 176);
+            margin: 0 0 0.5rem;
+            text-shadow: 4px 4px 0px var(--border);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin: 0 0 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #invite-code {
+            flex-grow: 1;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #invite-code:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(29, 28, 29, 0.25);
+        }
+
+        #submit-btn {
+            background: var(--gradient-primary);
+            color: var(--surface);
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.875rem 1.5rem;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        #myIframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 9999;
+            visibility: hidden;
+        }
+    </style>
+
+    <!--task bar CSS-->
+    <style>
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 48px;
+            background: var(--surface);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-sizing: border-box;
+            border-top: 2px solid var(--border);
+        }
+    </style>
+
+    <style>
+        .searchBar { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            border-radius: 6px; 
+            border: 2px solid var(--border); 
+            background: var(--surface); 
+            color: var(--text-muted); 
+        }
+
+        .game-wrapper-content {
+            flex: 1;
+            background: #000;
+            position: relative;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+    </style>
+
+    <!--main CSS-->
+    <style id="mainCSS">
+    </style>
+</head>
+<body onload="hello(), quotes()">
+    <div class="bg-drift-container">
+        <!--   TRUST... THIS WILL ALL WORK OUT...   -->
+        <div class="drifting-text-layer" id="drifter">      
+        </div>
+    </div>
+
+    <div id="blockerUI"></div>
+    <div id="blocker">
+        <div class="access-container">
+            <h1>STUDENT PLAYGROUND</h1>
+            <div id="TextHolder">
+                <p>      </p>
+                <p id="typing-quote">|</p>
+            </div>
+            <div class="input-group">
+                <input type="text" id="invite-code" placeholder="ENTER CODE NOW">
+                <button id="submit-btn"></button>
+            </div>
+            <p></p>
+        </div>
+    </div>
+
+    <div id="taskBarContainer">
+    </div>
+
+    <!--contains the windows-->
+    <div id="windowContainer">
+    </div>
+
+    <!--on startup run script-->
+    <script>
+        //start up
+        function hello(){
+            console.log('hello :)')
+            console.log('welcome to student playground by HAMISADOG345')
+            createDrift()
+        }
+
+        function createDrift(){
+            const createDrift = document.getElementById('drifter')
+            let content = ""
+
+            for (let i = 1; i < 50; i++){
+                    content += `<div class="line">HAMISADOG345 HAMISADOG345 HAMISADOG345 HAMISADOG345 HAMISADOG345</div>`
+            }
+
+            createDrift.innerHTML = content
+        }
+
+        function quotes(){ 
+            const quotes = [
+                "made by HAMISADOG345",
+                "made with love",
+                "MINOR",
+                "a place for un-learning",
+                "now with more features",
+                "does anyone read these",
+                "made with the help of ham my dog",
+                "finding dad the movie",
+                "the speder the better",
+                "a man in a van with a can all colored white",
+                "i added a minecraft launcher",
+                "FIVE GUYS a deadly foreshadowing",
+                "games games games",
+                "it takes a lot of work to create this",
+                "minecraft but the villagers torcher u",
+                "things to do in ur free time ^ ^ ^",
+                "when u meet an escaped convict from ebsteins o_o"
+            ];
+
+            const typingElement = document.getElementById('typing-quote');
+            if (!typingElement) return;
+
+            let currentQuote = "";
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+
+            function getRandomQuote() {
+                return quotes[Math.floor(Math.random() * quotes.length)];
+            }
+
+            currentQuote = getRandomQuote();
+
+            function typeEffect() {
+                if (isDeleting) {
+                currentQuote="|"
+                typingElement.textContent = currentQuote.substring(0, charIndex - 1);
+                charIndex--;
+                } else {
+                typingElement.textContent = currentQuote.substring(0, charIndex + 1);
+                charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentQuote.length) {
+                isWaiting = true;
+                setTimeout(() => {
+                    isDeleting = true;
+                    isWaiting = false;
+                    typeEffect();
+                }, 2000);
+                return;
+                } else if (isDeleting && charIndex === 1) {
+                isDeleting = false;
+
+                let newQuote;
+                do {
+                    newQuote = getRandomQuote();
+                    if (newQuote = currentQuote){
+                        newQuote = getRandomQuote();
+                    }
+                } while (newQuote === currentQuote && quotes.length > 2);
+
+                currentQuote = newQuote;
+                setTimeout(typeEffect, 500);
+                return;
+                }
+
+                const speed = isDeleting ? 50 : 100;
+                setTimeout(typeEffect, speed);
+            }
+
+            setTimeout(typeEffect, 100);
+        };
+    </script>
+
+    <!--blocker logic-->
+    <script>  
+        const validCodes = ["1234"];
+  
+        if (localStorage.getItem("accessGranted") === "true") {
+            if (!window.location.pathname.endsWith("student-playground.html")) {
+                clearAllHtml()
+                createMainHtml()
+            }
+        } else {
+            if (!window.location.pathname.endsWith("student-playground.html")) {
+                window.location.href = "student-playground.html";
+            }
+        }
+
+        const inviteCodeInput = document.getElementById('invite-code');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const iframe = document.getElementById('myIframe');
+
+        function checkInviteCode() {
+            const inputCode = inviteCodeInput.value.trim();
+
+            if (validCodes.includes(inputCode)) {
+                localStorage.setItem("accessGranted", "true");
+                console.log('login succsessful')
+                clearAllHtml()
+                createMainHtml()
+            } else if (inputCode === "") {
+                return;
+            } else {
+               return;
+            }
+        }
+
+        submitBtn.addEventListener('click', checkInviteCode);
+        inviteCodeInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkInviteCode();
+            }
+        });
+        
+        function toggleFullscreen() {
+            iframe.style.visibility = 'visible';
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+            else if (iframe.mozRequestFullscreen) iframe.mozRequestFullscreen();
+            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+        }
+
+        window.addEventListener('message', function(event) {
+            if (event.data === 'sequenceFinished') {
+                if (document.fullscreenElement) document.exitFullscreen();
+            }
+        });
+
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                iframe.style.visibility = 'hidden';
+                iframe.contentWindow.postMessage('resetSequence', '*');
+            }
+        });
+    </script>
+
+    <!--create main page-->
+    <script>
+        function clearAllHtml(){
+            const clearBlocker = document.getElementById('blocker')
+            const clearBlockerCSS = document.getElementById('blockerCSS')
+
+            clearBlockerCSS.innerHTML = ``
+            clearBlocker.innerHTML = ``
+        }
+
+        function createMainHtml(){
+            const mainCSS = document.getElementById('mainCSS')
+
+            mainCSS.innerHTML = `
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+                    color: var(--text);
+                    background-color: #0f172a;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 1rem;
+                    overflow: hidden;
+                }
+
+                h1 {
+                    font-size: 2rem;
+                    font-weight: 800;
+                    color: rgb(185, 176, 176);
+                    margin: 0 0 0.5rem;
+                }
+
+                p {
+                    color: var(--text-muted);
+                    margin: 0 0 2rem;
+                }
+
+                header {
+                    background: var(--gradient-primary);
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                    box-shadow: var(--shadow-lg);
+                }
+
+                .header-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 1.25rem 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .links {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .links a {
+                    color: rgba(255, 255, 255, 0.8);
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 0.5rem 1rem;
+                    border-radius: var(--radius);
+                    transition: all 0.3s;
+                    cursor: pointer;
+                }
+
+                main {
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 3rem 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .titleHeader {
+                    font-size: 4rem;
+                    font-weight: 800;
+                    color: white;
+                    text-decoration: none;
+                    margin: 0;
+                }
+
+                .announcements {
+                    background: var(--surface);
+                    border: 1px solid var(--border);
+                    border-radius: var(--radius-lg);
+                    padding: 2rem;
+                    width: 100%;
+                    max-width: 800px;
+                    box-shadow: var(--shadow-lg);
+                }
+
+                .announcements h1 {
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                    margin: 0.5rem 0 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.75rem;
+                }
+
+                .announcements i { 
+                    color: var(--primary); 
+                }
+
+                .announcements hr {
+                    border: 0;
+                    height: 1px;
+                    background-image: url(67.png);
+                    margin-bottom: 1.5rem;
+                }
+
+                .announcements p {
+                    color: var(--text-muted);
+                    font-size: 1.1rem;
+                    line-height: 1.7;
+                    margin: 0;
+                }
+
+                .titleMain {
+                    color: rgba(255, 255, 255, 0.8);
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 0.5rem 1rem;
+                    border-radius: var(--radius);
+                    cursor: pointer;
+                }
+            `
+
+            mainPopUp()
+            gamesPopUp()
+            minecraftPopUp()
+            taskBar()
+        }
+
+        function taskBar() {
+            const taskBar = document.getElementById('taskBarContainer')
+
+            taskBar.innerHTML = `
+                <div class="taskbar">
+                    <div class="start-btn">
+                        <div class="icon">this is a start i think...</div>
+                    </div>
+
+                    <div class="app-list">
+                    </div>
+                </div>
+            `
+        }
+    </script>
+
+    <!--window logic-->
+    <script>
+        function toggleMaximize(win) {
+            if (win.dataset.isMaximized !== "true") {
+                // Save current state to dataset memory
+                win.dataset.oldTop = win.style.top;
+                win.dataset.oldLeft = win.style.left;
+                win.dataset.oldWidth = win.style.width;
+                win.dataset.oldHeight = win.style.height;
+                win.dataset.oldTransform = win.style.transform;
+                win.dataset.oldRadius = win.style.borderRadius;
+
+                win.style.top = "0px";
+                win.style.left = "0px";
+                win.style.width = "100vw";
+                win.style.height = "100vh";
+                win.style.transform = "none";
+                win.style.borderRadius = "0px";
+                
+                win.dataset.isMaximized = "true";
+
+            } else {
+                win.style.top = win.dataset.oldTop;
+                win.style.left = win.dataset.oldLeft;
+                win.style.width = win.dataset.oldWidth;
+                win.style.height = win.dataset.oldHeight;
+                win.style.transform = win.dataset.oldTransform;
+                win.style.borderRadius = win.dataset.oldRadius;
+
+                win.dataset.isMaximized = "false";
+            }
+        }
+
+        function dragElement(elmnt) {
+            let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+            const header = document.getElementById(elmnt.id + "Header");
+
+            header.onmousedown = (e) => {
+                if (elmnt.dataset.isMaximized === "true") return;
+
+                elmnt.classList.add('dragging');
+
+                if (elmnt.style.transform !== "none") {
+                    const rect = elmnt.getBoundingClientRect();
+                    elmnt.style.transform = "none";
+                    elmnt.style.top = rect.top + "px";
+                    elmnt.style.left = rect.left + "px";
+                }
+
+                p3 = e.clientX;
+                p4 = e.clientY;
+
+                document.onmouseup = () => {
+                    elmnt.classList.remove('dragging');
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                };
+
+                document.onmousemove = (e) => {
+                    p1 = p3 - e.clientX;
+                    p2 = p4 - e.clientY;
+                    p3 = e.clientX;
+                    p4 = e.clientY;
+                    elmnt.style.top = (elmnt.offsetTop - p2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - p1) + "px";
+                };
+            };
+        }
+    </script>
+
+    <!--window ui and stuff-->
+    <script>
+        function mainPopUp() {
+            const winContainer = document.getElementById('windowContainer')
+            const win = document.createElement('div');
+            win.id = "mainPopUp"
+            win.className = "win-instance"
+
+            win.innerHTML = `
+                <div id="mainPopUpHeader" class="window-header">
+                    <span>HAMISADOG345</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="toggleMaximize(this.closest('.win-instance'))">◻</span>
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <main>
+                        <section class="announcements">
+                            <a><h1 class = "title"><i class="title"></i>HAMISADOG345</h1><a>
+                            <p>lots of games that use a custom loader that works even with the blocker</p>
+                            <p>the trick is simple use the fetch method and add a proxy</p>
+                            <p>and now u have your own loader</p>
+                            <p>if u are planning to copy my code add a link to hamisadog345.github.io to ur loader</p>
+                            <p>it takes time to think this up and a lot of research</p>
+                            <p>trust, this site wouldn't be blocked i did my research before makeing it</p>
+                        </section>
+                    </main>
+                </div>
+            `;
+
+            winContainer.appendChild(win)
+
+            win.style.top = "50%";
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+
+            dragElement(win);
+        }
+
+        function gamesPopUp() { 
+            const winContainer = document.getElementById('windowContainer'); 
+            if (document.getElementById('gamesPopUp')) return; 
+
+            const win = document.createElement('div'); 
+            win.id = "gamesPopUp"; 
+            win.className = "win-instance"; 
+
+            const games = [ 
+                {href: 'games/amazingropepolice/index.html', title: 'amazing strange rope police' }, 
+                {href: 'games/amongus/index.html', title: 'among us' }, 
+                {href: 'games/bitlife/bitlife.html', title: 'bit life' }, 
+                {href: 'games/clusterrush/cluster.html', title: 'cluster rush' }, 
+                {href: 'games/cookieclicker/cookie.html', title: 'cookie clicker' }, 
+                {href: 'games/dadish/dad1.html', title: 'dadish' }, 
+                {href: 'games/dadish2/dad2.html', title: 'dadish 2' }, 
+                {href: 'games/dadish3/dad3.html', title: 'dadish 3' }, 
+                {href: 'games/driftboss/drift.html', title: 'drift boss' }, 
+                {href: 'games/geometry-dash-lite/geometry-lite.html', title: 'geometry dash lite' }, 
+                {href: 'games/geometry-dash-scratch/geometry-scratch.html', title: 'geometry dash scratch' }, 
+                {href: 'games/motox3m/motox3m.html', title: 'moto x3m' }
+            ];
+
+            win.innerHTML = `
+                <div id="gamesPopUpHeader" class="window-header">
+                    <span>games</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="toggleMaximize(this.closest('.win-instance'))">◻</span>
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <section><input type="text" class="searchBar" id="popupSearchBar" placeholder="SEARCH SOMETHING!!!"></section>
+                    <div class="Container" id="popupGamesContainer"></div>
+                </div>
+            `;
+
+            winContainer.appendChild(win);
+
+            const container = win.querySelector('#popupGamesContainer');
+            const searchBar = win.querySelector('#popupSearchBar');
+
+            function displayGames(gamesList) {
+                container.innerHTML = '';
+                gamesList.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h1>${game.title}</h1>`;
+                    card.onclick = () => openGameInWrapper(game.title, game.href);
+                    container.appendChild(card);
+                });
+            }
+
+            searchBar.addEventListener('keyup', () => {
+                const searchTerm = searchBar.value.toLowerCase();
+                const filtered = games.filter(game => game.title.toLowerCase().includes(searchTerm));
+                displayGames(filtered);
+            });
+
+            displayGames(games);
+
+            win.style.top = "50%"; 
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+            dragElement(win);
+        }
+
+        function openGameInWrapper(title, href) {
+            const winContainer = document.getElementById('windowContainer');
+            const windowId = `game-${title.replace(/\s+/g, '-').toLowerCase()}`;
+    
+            const existingWin = document.getElementById(windowId);
+            if (existingWin) {
+                document.querySelectorAll('.win-instance').forEach(w => w.style.zIndex = "100");
+                existingWin.style.zIndex = "101";
+                return;
+            }
+
+            const win = document.createElement('div');
+            win.id = windowId;
+            win.className = "win-instance";
+            win.style.width = "800px";
+            win.style.height = "600px";
+
+            win.innerHTML = `
+                <div id="${title}Header" class="window-header">
+                    <span style="text-transform: capitalize;">${title}</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="toggleMaximize(this.closest('.win-instance'))">◻</span>
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="game-wrapper-content">
+                    <!-- Sandbox prevents embedded script elements from redirecting your main tab -->
+                    <iframe src="${href}" 
+                            class="game-frame" 
+                            allowfullscreen="true"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock">
+                    </iframe>
+                </div>
+            `;
+
+            winContainer.appendChild(win);
+
+            win.style.top = "45%"; 
+            win.style.left = "55%";
+            win.style.transform = "translate(-50%, -50%)";
+            
+            dragElementGAME(win);
+        }
+
+        function dragElementGAME(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            const header = elmnt.querySelector(".window-header");
+            
+            if (header) {
+                header.onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                if (elmnt.classList.contains('maximized')) return;
+                
+                const activeWindows = document.querySelectorAll('.win-instance');
+                activeWindows.forEach(w => w.style.zIndex = "100");
+                elmnt.style.zIndex = "101";
+
+                if (e.target.tagName !== "INPUT" && e.target.tagName !== "SPAN") {
+                    e.preventDefault();
+                }
+                
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+
+    <!--if cant assemble/offline-->
+    <script>
+        // if cant assemble/offline
+        // only works if github isnt blocked
+        const offlineGames = [
+            { title: "1v1 LOL", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/1v1_lol.html" },
+            { title: "war the knights", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/knights.html" },
+            { title: "Angry Birds", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/angry_birds.html" },
+            { title: "age of conflict", url: "https://github.com/HAMISADOG345/html-and-other-stuff/blob/main/ages_of_conflict.html" },
+            { title: "eaglercraft 1.12", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/Eaglercraft-1.12.2-WASM.html" },
+            { title: "eaglercraft 1.8", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/Eaglercraft-1.8-WASM.html" },
+            { title: "the backrooms", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/backrooms.html" },
+            { title: "bad piggies", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/bad_piggies.html" },
+            { title: "baldis basics", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/baldis_basics.html" },
+            { title: "big tower tiny square 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/big_tower_tiny_square.html" },
+            { title: "cookie clicker", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/cookie_clicker.html" },
+            { title: "death run 3d", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/death_run_3d.html" },
+            { title: "escape road city 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/escape_road_city_2.html" },
+            { title: "getaway shootout", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/getaway_shootout.html" },
+            { title: "getting over it", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/getting_over_it.html" },
+            { title: "gladihoppers", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gladihoppers.html" },
+            { title: "GTA vice city", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/grand_thef_auto_vice_city.html" },
+            { title: "gun mayhem", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gun_mayhem.html" },
+            { title: "gun mayhem 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gun_mayhem_2.html" },
+            { title: "hollow knight", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/hollow_knight.html" },
+            { title: "level devil", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/level_devil%20(1).html" },
+            { title: "people playground", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/people_playground.html" },
+            { title: "ragdoll archers", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/ragdoll_archers.html" },
+            { title: "ragdoll hit", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/ragdoll_hit.html" },
+            { title: "retro bowl", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/retro_bowl.html" },
+            { title: "sandboxels", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/sand_game.html" },
+            { title: "short life", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/short_life.html" },
+            { title: "snow rider", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/snow_rider_3d.html" },
+            { title: "solar smash", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/solar_smash.html" },
+            { title: "the amazing strange rope police", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/strange_rope_police.html" },
+            { title: "terraria", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/terraria.html" },
+            { title: "time shooter 3 swat", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/time_shooter_3__swat.html" },
+            { title: "tung tung horrer", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/tung_sahur_horror.html" },
+            { title: "undertale", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/undertale.html" },
+        ];
+    </script>
+
+    <!--eaglerforge window-->
+    <script>
+
+    </script>
+
+    <!--js file converter-->
+    <script>
+
+    </script>
+
+    <!--minecraft launcher script-->
+    <script>
+        function minecraftPopUp() {
+            const winContainer = document.getElementById('windowContainer');
+            if (document.getElementById('minecraftPopUp')) return;
+
+            const win = document.createElement('div');
+            win.id = "minecraftPopUp";
+            win.className = "win-instance";
+            win.innerHTML = `
+                <style>
+                    #minecraftPopUp .content-area { 
+                        padding: 20px; 
+                        display: flex; 
+                        flex-direction: column; 
+                        gap: 15px; 
+                    }
+
+                    #minecraftPopUp .form-group { 
+                        display: flex; 
+                        flex-direction: column; 
+                        gap: 5px; }
+                    #minecraftPopUp label { 
+                        font-size: 11px; 
+                        font-weight: bold; 
+                        text-transform: uppercase; 
+                        color: #a6adc8; 
+                    }
+
+                    #minecraftPopUp input, #minecraftPopUp select { 
+                        padding: 10px; 
+                        border-radius: 6px; 
+                        border: 2px solid var(--border); 
+                        background: var(--surface); 
+                        color: var(--text-muted); 
+                        font-size: 14px; 
+                        outline: none; 
+                    }
+                    
+                    #minecraftPopUp .launch-btn { 
+                        padding: 12px; 
+                        background: #28a745; 
+                        color: white; 
+                        border: none; 
+                        border-radius: 6px; 
+                        font-weight: bold; 
+                        cursor: pointer; 
+                        transition: background 0.2s; 
+                    }
+                    
+                    #minecraftPopUp .launch-btn:hover { 
+                        background: #218838; 
+                    }
+
+                    #minecraftPopUp .status-box { 
+                        font-size: 13px; 
+                        font-weight: bold; 
+                        text-align: center; 
+                        min-height: 18px; 
+                    }
+
+                    #minecraftPopUp .myInput {
+                        border: 2px solid var(--border)
+                        background-color: var(--surface)
+                        color: var(--text-muted)
+                    }
+                </style>
+                <div id="minecraftPopUpHeader" class="window-header">
+                    <span>Minecraft Launcher</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="mc_username" value="mc_player" class="myInput">
+                    </div>
+                    <div class="form-group">
+                        <label>Version</label>
+                        <select id="mc_version" class="myInput">
+                            <option value="1.21.6">1.21.6</option>
+                            <option value="1.21.5">1.21.5</option>
+                            <option value="1.21.4">1.21.4</option>
+                            <option value="1.21.3">1.21.3</option>
+                            <option value="1.21.2">1.21.2</option>
+                            <option value="1.21.1">1.21.1</option>
+                            <option value="1.21">1.21</option>
+                            <option value="1.20.6">1.20.6</option>
+                            <option value="1.20.5">1.20.5</option>
+                            <option value="1.20.4">1.20.4</option>
+                            <option value="1.20.3">1.20.3</option>
+                            <option value="1.20.2">1.20.2</option>
+                            <option value="1.20.1">1.20.1</option>
+                            <option value="1.20">1.20</option>
+                            <option value="1.19.4">1.19.4</option>
+                            <option value="1.19.3">1.19.3</option>
+                            <option value="1.19.2">1.19.2</option>
+                            <option value="1.19.1">1.19.1</option>
+                            <option value="1.19">1.19</option>
+                            <option value="1.18.2">1.18.2</option>
+                            <option value="1.18.1">1.18.1</option>
+                            <option value="1.18">1.18</option>
+                            <option value="1.17.1">1.17.1</option>
+                            <option value="1.17">1.17</option>
+                            <option value="1.16.5">1.16.5</option>
+                            <option value="1.16.4">1.16.4</option>
+                            <option value="1.16.3">1.16.3</option>
+                            <option value="1.16.2">1.16.2</option>
+                            <option value="1.16.1">1.16.1</option>
+                            <option value="1.16">1.16</option>
+                            <option value="1.15.2">1.15.2</option>
+                            <option value="1.15.1">1.15.1</option>
+                            <option value="1.15">1.15</option>
+                            <option value="1.14.4">1.14.4</option>
+                            <option value="1.14.3">1.14.3</option>
+                            <option value="1.14.2">1.14.2</option>
+                            <option value="1.14.1">1.14.1</option>
+                            <option value="1.14">1.14</option>
+                            <option value="1.13.2">1.13.2</option>
+                            <option value="1.13.1">1.13.1</option>
+                            <option value="1.13">1.13</option>
+                            <option value="1.12.2">1.12.2</option>
+                            <option value="1.12.1">1.12.1</option>
+                            <option value="1.12">1.12</option>
+                            <option value="1.11.2">1.11.2</option>
+                            <option value="1.11.1">1.11.1</option>
+                            <option value="1.11">1.11</option>
+                            <option value="1.10.2">1.10.2</option>
+                            <option value="1.10.1">1.10.1</option>
+                            <option value="1.10">1.10</option>
+                            <option value="1.9.4">1.9.4</option>
+                            <option value="1.9.3">1.9.3</option>
+                            <option value="1.9.2">1.9.2</option>
+                            <option value="1.9.1">1.9.1</option>
+                            <option value="1.9">1.9</option>
+                            <option value="1.8.9">1.8.9</option>
+                            <option value="1.8.8">1.8.8</option>
+                            <option value="1.8.7">1.8.7</option>
+                            <option value="1.8.6">1.8.6</option>
+                            <option value="1.8.5">1.8.5</option>
+                            <option value="1.8.4">1.8.4</option>
+                            <option value="1.8.3">1.8.3</option>
+                            <option value="1.8.2">1.8.2</option>
+                            <option value="1.8.1">1.8.1</option>
+                            <option value="1.8">1.8</option>
+                            <option value="1.7.10">1.7.10</option>
+                            <option value="1.7.9">1.7.9</option>
+                            <option value="1.7.8">1.7.8</option>
+                            <option value="1.7.7">1.7.7</option>
+                            <option value="1.7.6">1.7.6</option>
+                            <option value="1.7.5">1.7.5</option>
+                            <option value="1.7.4">1.7.4</option>
+                            <option value="1.7.2">1.7.2</option>
+                            <option value="1.6.4">1.6.4</option>
+                            <option value="1.6.2">1.6.2</option>
+                            <option value="1.6.1">1.6.1</option>
+                            <option value="1.5.2">1.5.2</option>
+                            <option value="1.5.1">1.5.1</option>
+                            <option value="1.4.7">1.4.7</option>
+                            <option value="1.4.6">1.4.6</option>
+                            <option value="1.4.5">1.4.5</option>
+                            <option value="1.4.4">1.4.4</option>
+                            <option value="1.4.2">1.4.2</option>
+                            <option value="1.3.2">1.3.2</option>
+                            <option value="1.3.1">1.3.1</option>
+                            <option value="1.2.5">1.2.5</option>
+                            <option value="1.2.4">1.2.4</option>
+                            <option value="1.2.3">1.2.3</option>
+                            <option value="1.2.2">1.2.2</option>
+                            <option value="1.2.1">1.2.1</option>
+                            <option value="1.1">1.1</option>
+                            <option value="1.0">1.0</option>
+                        </select>
+                    </div>
+                    <button class="launch-btn" onclick="executeMinecraftLaunch()">LAUNCH GAME</button>
+                    <div id="mc_status" class="status-box"></div>
+                </div>
+            `;
+            winContainer.appendChild(win);
+            win.style.top = "50%";
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+            dragElement(win);
+        }
+
+        function executeMinecraftLaunch() {
+            const userVal = document.getElementById('mc_username').value;
+            const verVal = document.getElementById('mc_version').value;
+            const statusText = document.getElementById('mc_status');
+            statusText.style.color = "orange";
+            statusText.innerText = "Connecting to local server...";
+
+            fetch('/api/launch-minecraft', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: userVal, version: verVal })
+            })
+            .then(res => res.json())
+            .then(data => {
+                statusText.style.color = data.status === 'success' ? "#a6e3a1" : "#f38ba8";
+                statusText.innerText = data.message;
+            })
+            .catch(() => {
+                statusText.style.color = "#f38ba8";
+                statusText.innerText = "Cannot reach backend. Run your .bat file!";
+            });
+        }
+    </script>
+
+    <!--stay hidden script-->
+    <script>
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                console.log("User left the tab");
+                document.title = "New tab";
+                window.history.replaceState(null, "", window.location.pathname.replace("file:///C:/Users/OneDrive/Documentos/GitHub/html-and-other-stuff/blocked.html", "NOTaURL"));
+            } else {
+                console.log("User returned");
+                document.title = "student playground";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--NO STEALING OR THE MINORing IS APON U-->
+    <!--I MEAN IT!!!!!!-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">HAMISADOG345</title>
+    <meta name="title" content="BRUH" property="og:title">
+    <div id="icon">
+
+    </div>
+    <style>
+        .scroll-box {
+            width: 300px;
+            height: 150px;
+            overflow: auto; /* Adds scrollbars only when necessary */
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+    <style>
+        :root {
+            
+            --primary:
+            --primary-hover:
+            --text: #f1f5f9;
+            --bg: #0f172a;
+            --text-muted: #94a3b8;
+            --surface: #1e293b;
+            --border: #334155;
+            --radius: 12px;
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6), 0 4px 6px -4px rgb(0 0 0 / 0.6);
+            --gradient-primary: linear-gradient(135deg, #3f3a3b 0%, #3f383a 100%);
+        }
+
+        .access-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: rgb(185, 176, 176);
+            margin: 0 0 0.5rem;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin: 0 0 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #invite-code {
+            flex-grow: 1;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #invite-code:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(29, 28, 29, 0.25);
+        }
+
+        #submit-btn {
+            background: var(--gradient-primary);
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.875rem 1.5rem;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        #myIframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 9999;
+            visibility: hidden;
+        }
+
+        header {
+            background: var(--gradient-primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .titleHeader {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            margin: 0;
+        }
+
+        .announcements {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .announcements h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .announcements i { 
+            color: var(--primary); 
+        }
+
+        .announcements hr {
+            border: 0;
+            height: 1px;
+            background-image: url(67.png);
+            margin-bottom: 1.5rem;
+        }
+
+        .announcements p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .title {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+
+        .scroll-container {
+            width: 1840px;
+            height: 750px;
+            background-color: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;  
+            -webkit-overflow-scrolling: touch; 
+            box-shadow: var(--shadow-lg);
+        }
+    </style>
+    <style id="fixCard">
+
+    </style>
+    <style id="downloadsCSS">
+
+    </style>
+    <style id="gamesLoadCSS">
+
+    </style>
+    <style id="fixHeader">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            color: var(--text);
+            background-color: #0f172a;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            overflow: hidden;
+        }
+    </style>
+    <style>
+        .projects {
+        height: 300;
+        width: 200;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        }
+
+        .project {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: #000000;
+        border: #f1f5f9;
+        }
+
+        .project:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0);
+        }
+
+        .text {
+            color: var(--text);
+        }
+    </style>
+    <script>
+        function generateHeader(){
+            const fixHeader1=document.getElementById('fixHeader')
+            const fixHeader2=document.getElementById('fixHeader')
+            fixHeader1.innerHTML=``
+            fixHeader2.innerHTML=`
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+                    color: var(--text);
+                    background-color: #0f172a;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 1rem;
+                    overflow: hidden;
+                }
+                .btn-list{
+                    display:flex;
+                    flex-direction: column;
+                }
+                button{
+                    height: 300;
+                    width: 250;
+                    background: var(--card);
+                    border-radius: 12px;
+                    background-color: var(--surface);
+                    box-shadow: #000000;
+                    padding: 1.5rem;
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    text-decoration: none; display: flex; flex-direction: column;
+                    transition: all 0.4s;
+                    display:flex;
+                    flex-direction: grid;
+                }
+            `
+
+            const header=document.getElementById('header')
+            header.innerHTML=`
+                <nav>
+                    <div class="header-content">
+                        <a href="information.html" class="titleHeader">the flooding of the toilets</a>
+                        <nav class="links">
+                            <a onclick="display()">games</a>
+                            <a onclick="createDownloadPage()">downloads</a>
+                            <a href="https://hamisadog345.github.io/toilet.html">site</a>
+                            <a href="https://th.bing.com/th/id/R.0f3cc1b69f7046e6355687263aead9ee?rik=e%2fzLRdxmCMtNRA&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f6%2f69%2fBanana.png&ehk=0MA9r3huU44GTjIIWGK6A1R0At%2bSPNmztxBBWKsquWw%3d&risl=1&pid=ImgRaw&r=0">BANANA</a>
+                        </nav>
+                    </div>
+                </nav>
+            `
+        }
+    </script>
+    <div id="header"></div>
+</head>
+<body onload="hello()">
+    <header id="secondHeader" class="header"></header>
+    <div id="ButtonDiv"></div>
+    <div id="UIconatiner"></div>
+    <div class="" id="Container"></div>
+    <div id="blocker">
+        <div class="access-container">
+        <h1>Password</h1>
+            <div class="input-group">
+                <input type="text" id="invite-code" placeholder="enter code NOW">
+                <button id="submit-btn"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <div data-page="welcome"></div>
+    <iframe id="myIframe" src="aboutBlank.html"></iframe>
+
+    <script>
+        function hello(){
+            console.log('hello :)')
+            console.log('what are u here for? games, apps, or to copy my code?')
+        }
+
+        function createBlocker(){
+            const blocker=document.getElementById('UIconatiner')
+            blocker.innerHTML=`
+
+            `
+        }
+
+        function blank(){
+            const blank=document.getElementById('UIconatiner')
+            const gamesBeGone=document.getElementById('Container')
+            gamesBeGone.innerHTML=``
+            blank.innerHTML=``
+            //nothing... every thing is gone.
+        }
+
+        function generateWelcome(){
+            const blockerBeGone=document.getElementById('blocker')
+            blockerBeGone.innerHTML=``
+            const welcome=document.getElementById('UIconatiner')
+            welcome.innerHTML=`
+                <main>
+                    <section class="announcements">
+                        <a><h1 class = "title"><i class="title"></i>HAMISADOG345</h1><a>
+                        <p>lots of games that use a custom loader that works even with the blocker</p>
+                        <p>the trick is simple use the fetch method and add a proxy</p>
+                        <p>and now u have your own loader</p>
+                        <p>if u are planning to copy my code add a link to hamisadog345.github.io to ur loader</p>
+                        <p>it takes time to think this up and a lot of research</p>
+                        <p>trust, this site wouldn't be blocked i did my research before makeing it</p>
+                    </section>
+                </main>
+            `
+        }
+
+        const validCodes = ["67?"];
+        const adminCodes = ["1234"];
+  
+        if (localStorage.getItem("accessGranted") === "true") {
+            if (!window.location.pathname.endsWith("student-playground.html")) {
+                 generateWelcome(),generateHeader()
+            }
+        } else {
+            if (!window.location.pathname.endsWith("student-playground.html")) {
+                window.location.href = "student-playground.html";
+            }
+        }
+
+        const inviteCodeInput = document.getElementById('invite-code');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const iframe = document.getElementById('myIframe');
+
+        function checkInviteCode() {
+            const inputCode = inviteCodeInput.value.trim();
+
+            if (validCodes.includes(inputCode)) {
+                localStorage.setItem("accessGranted", "true");
+                generateWelcome(),generateHeader()
+            } else if (inputCode === "") {
+                return;
+            } else {
+               return;
+            }
+        }
+
+        submitBtn.addEventListener('click', checkInviteCode);
+        inviteCodeInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkInviteCode();
+            }
+        });
+
+        function checkAdminCode() {
+            const inputCode = inviteCodeInput.value.trim();
+
+            if (adminCodes.includes(inputCode)) {
+                localStorage.setItem("accessGranted", "true");
+                window.location.href = "admin.html"; 
+            } else if (inputCode === "") {
+                return;
+            } else {
+               window.location.herf = "aboutBlank.html";
+            }
+        }
+
+        submitBtn.addEventListener('click', checkAdminCode);
+        inviteCodeInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkAdminCode();
+            }
+        });
+        
+        function toggleFullscreen() {
+            iframe.style.visibility = 'visible';
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+            else if (iframe.mozRequestFullscreen) iframe.mozRequestFullscreen();
+            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+        }
+
+        window.addEventListener('message', function(event) {
+            if (event.data === 'sequenceFinished') {
+                if (document.fullscreenElement) document.exitFullscreen();
+            }
+        });
+
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                iframe.style.visibility = 'hidden';
+                iframe.contentWindow.postMessage('resetSequence', '*');
+            }
+        });
+        // Page content data
+        const pages = {
+            welcome: ``,
+            about: "",
+            contact: ""
+        };
+        //Page content data
+
+            const contentDiv = document.getElementById("content");
+
+        function loadPage(page) {
+            if (pages[page]) {
+                contentDiv.innerHTML = pages[page];
+                history.pushState("about:blank");
+            } else {
+                contentDiv.innerHTML = "<h1>404</h1><p>im turning sped</p>";
+            }
+        }
+
+        document.querySelectorAll("nav a").forEach(link => {
+            link.addEventListener("click", e => {
+                const page = e.target.getAttribute("data-page");
+                loadPage(page);
+            });
+        });
+
+        window.addEventListener("popstate", e => {
+            const page = e.state?.page || "blocker";
+            contentDiv.innerHTML = pages[page] || "<h1>404</h1>";
+        });
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        const quotes = [
+            "theres an easter egg if u press F12",
+            "MINOR",
+            "yall not ready for the MINOR-ing",
+            "there is a sheep, u know what to do",
+            "coka cola",
+            "40minors",
+            "also try terraria",
+            "GIVE... ME... JAVA!",
+            "made with love",
+            "made by gamers for gamers",
+            "why do u guys react every time i say MINOR",
+            "seriously, dont get a referal for playing on my site",
+            "play games and have fun",
+            "UI based off DASH",
+            "DASH is fun",
+            "pov droping a certain thing in prison",
+            "helios browser kind of sucks",
+            "buy me a coke",
+            "im having brain damage",
+            "lots and lots of minecraft",
+            "minecraft villager"
+        ];
+
+        const typingElement = document.getElementById('typing-quote');
+        if (!typingElement) return;
+
+        let currentQuote = "";
+        let charIndex = 0;
+        let isDeleting = false;
+        let isWaiting = false;
+
+        function getRandomQuote() {
+            return quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        currentQuote = getRandomQuote();
+
+        function typeEffect() {
+            if (isDeleting) {
+            typingElement.textContent = currentQuote.substring(0, charIndex - 1);
+            charIndex--;
+            } else {
+            typingElement.textContent = currentQuote.substring(0, charIndex + 1);
+            charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentQuote.length) {
+            isWaiting = true;
+            setTimeout(() => {
+                isDeleting = true;
+                isWaiting = false;
+                typeEffect();
+            }, 2000);
+            return;
+            } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+
+            let newQuote;
+            do {
+                newQuote = getRandomQuote();
+            } while (newQuote === currentQuote && quotes.length > 1);
+
+            currentQuote = newQuote;
+            setTimeout(typeEffect, 500);
+            return;
+            }
+
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeEffect, speed);
+        }
+
+        setTimeout(typeEffect, 1000);
+        });
+
+        function createDownloadPage(){
+            const downloads=document.getElementById('UIconatiner')
+            const downloadsUI=document.getElementById('downloadsCSS')
+            const clearOther=document.getElementById('Container')
+
+            blank()
+
+            clearOther.innerHTML=``
+
+            downloadsUI.innerHTML=`
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding: 3rem 2rem;
+                    position: relative;
+                    z-index: 10;
+                }
+
+                .header {
+                    text-align: center;
+                    margin-bottom: 5rem;
+                    position: relative;
+                }
+
+                .subtitle {
+                    font-size: 1rem;
+                    letter-spacing: 4px;
+                    text-transform: uppercase;
+                    color: var(--text-secondary);
+                    margin-top: 1rem;
+                    font-weight: 300;
+                }
+
+                .subtitle i {
+                    color: var(--primary);
+                    margin: 0 8px;
+                    font-size: 0.8rem;
+                    opacity: 0.7;
+                }
+
+                .urDevNeeedsHELP {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 3rem 0 2rem;
+                }
+
+                .social-link {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    background: rgba(10, 10, 10, 0.6);
+                    backdrop-filter: var(--blur-amount);
+                    -webkit-backdrop-filter: var(--blur-amount);
+                    border: 1px solid var(--card-border);
+                    color: var(--text-secondary);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    transition: var(--transition);
+                    font-size: 1.2rem;
+                }
+
+                .social-link:hover {
+                    border-color: var(--primary);
+                    color: var(--primary);
+                    transform: translateY(-3px);
+                    box-shadow: var(--shadow-glow);
+                    background: rgba(20, 20, 20, 0.7);
+                }
+
+                .section-header {
+                    margin-bottom: 3rem;
+                    position: relative;
+                }
+
+                .section-title {
+                    font-size: 1.5rem;
+                    font-weight: 300;
+                    letter-spacing: 4px;
+                    text-transform: uppercase;
+                    margin-bottom: 0.5rem;
+                    color: var(--text-primary);
+                }
+
+                .links-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 2rem;
+                    margin-bottom: 4rem;
+                }
+
+                @media (min-width: 1024px) {
+                    .links-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+
+                .link-card {
+                    background: var(--bg-card);
+                    backdrop-filter: var(--blur-amount);
+                    -webkit-backdrop-filter: var(--blur-amount);
+                    border: 1px solid var(--card-border);
+                    border-radius: 16px;
+                    padding: 1.8rem;
+                    transition: var(--transition);
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    box-shadow: var(--shadow);
+                }
+
+                .link-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+                    transform: translateX(-100%);
+                    transition: transform 0.6s ease;
+                    opacity: 0.5;
+                }
+
+                .link-card:hover {
+                    border-color: var(--card-border-hover);
+                    box-shadow: var(--shadow-glow);
+                    transform: translateY(-5px);
+                    background: var(--bg-card-hover);
+                    backdrop-filter: var(--blur-amount);
+                    -webkit-backdrop-filter: var(--blur-amount);
+                }
+
+                .link-card:hover::before {
+                    transform: translateX(100%);
+                }
+
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 1rem;
+                }
+
+                .card-title {
+                    font-size: 1.3rem;
+                    font-weight: 400;
+                    margin-bottom: 0.8rem;
+                    color: var(--text-primary);
+                    letter-spacing: -0.5px;
+                    padding-right: 1rem;
+                }
+
+                .card-url {
+                    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                    margin-bottom: 1.5rem;
+                    padding: 0.5rem 0;
+                    border-bottom: 1px dashed var(--border-color);
+                    word-break: break-all;
+                    line-height: 1.4;
+                }
+
+                .card-footer {
+                    margin-top: auto;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .card-category {
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    color: var(--text-muted);
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: var(--blur-amount);
+                    -webkit-backdrop-filter: var(--blur-amount);
+                    padding: 0.3rem 0.8rem;
+                    border-radius: 30px;
+                    border: 1px solid rgba(255, 255, 255, 0.03);
+                }
+
+                .visit-link {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 0.6rem 1.2rem;
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: var(--blur-amount);
+                    -webkit-backdrop-filter: var(--blur-amount);
+                    border: 1px solid var(--card-border);
+                    border-radius: 30px;
+                    color: var(--text-secondary);
+                    text-decoration: none;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    transition: var(--transition);
+                }
+
+                .visit-link i {
+                    font-size: 0.8rem;
+                    transition: transform 0.2s ease;
+                    color: var(--primary);
+                    opacity: 0.7;
+                }
+
+                .visit-link:hover:not(.disabled) {
+                    border-color: var(--primary);
+                    background: rgba(194, 124, 21, 0.1);
+                    color: var(--primary);
+                }
+
+                .visit-link:hover:not(.disabled) i {
+                    transform: translateX(3px);
+                    opacity: 1;
+                }
+
+                .visit-link.disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    pointer-events: none;
+                    border-color: var(--card-border);
+                }
+
+                .link-card {
+                    opacity: 0;
+                    animation: fadeInUp 0.5s ease forwards;
+                }
+
+                @media (max-width: 768px) {
+                    .container {
+                        padding: 2rem 1rem;
+                    }
+
+                    .links-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1.5rem;
+                    }
+
+                    .social-bar {
+                        gap: 1rem;
+                    }
+
+                    .social-link {
+                        width: 40px;
+                        height: 40px;
+                        font-size: 1rem;
+                    }
+
+                    .section-title {
+                        font-size: 1.2rem;
+                        letter-spacing: 3px;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .subtitle {
+                        font-size: 0.8rem;
+                        letter-spacing: 2px;
+                    }
+
+                    .card-title {
+                        font-size: 1.1rem;
+                    }
+
+                    .card-url {
+                        font-size: 0.7rem;
+                    }
+                }
+                
+                .downloadsTitle {
+                    color:antiquewhite;
+                }
+                .projects {
+                    height: 300;
+                    width: 200;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 1.5rem;
+                    max-width: 1000px;
+                    margin: 3rem auto;
+                    padding: 0 1rem;
+                }
+
+                .project {
+                    background: var(--card);
+                    border-radius: 12px;
+                    padding: 1.5rem;
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    box-shadow: #000000;
+                    border: #f1f5f9;
+                }
+
+                .project:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0);
+                }
+
+                .text {
+                    color: var(--text);
+                }
+            `
+            downloads.innerHTML=`
+                <div class="urDevNeeedsHELP">
+                    <a href="https://github.com/HAMISADOG345" class="logo"><h1>u can contribute on github to play games</h1></a>
+                </div>
+                <div class="container">
+                    <div>
+                        <h2 class="downloadsTitle">DOWNLOADS:</h2>
+                    </div>
+                    <div class="container">
+                        <div class="project">
+                            <a href="https://github.com/HAMISADOG345/game/blob/main/Eaglercraft-1.8-WASM.html"><h2 class="text">eaglercraft 1.8</h2></a>
+                        </div>
+                        <div class="project">
+                            <a href="https://github.com/HAMISADOG345/game/blob/main/Eaglercraft-1.12.2-WASM.html"><h2 class="text">eaglercraft 1.12</h2></a>
+                        </div>
+                        <div class="project">
+                            <a href="https://github.com/HAMISADOG345/game/releases/tag/games"><h2 class="text">the app</h2></a>
+                        </div>
+                        <div class="project">
+                            <a href=""><h2 class="text">another copy of this bypass</h2></a>
+                        </div>
+                    </div>
+                </div>
+            `
+            console.log('downloads')
+        }
+
+        function updateLog(msg, type) {
+            const log = document.getElementById('log');
+            log.innerText = msg;
+            log.className = type;
+        }
+
+        function handleResize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;      
+        }
+
+        window.addEventListener('resize', handleResize);
+        window.onload(getFavIcon())
+        window.history.replaceState(null, "", window.location.pathname.replace("file:///C:/Users/OneDrive/Documentos/GitHub/html-and-other-stuff/blocked.html", "NOTaURL"));
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                const iconChange=document.getElementById('icon')
+
+                iconBlank()
+
+                console.log("User left the tab");
+                document.title = "New tab";
+                window.history.replaceState(null, "", window.location.pathname.replace("file:///C:/Users/OneDrive/Documentos/GitHub/html-and-other-stuff/blocked.html", "NOTaURL"));
+                iconChange.innerHTML=`
+                    <link href=""
+                        id="siteFavicon" rel="icon" type="image/x-icon">
+                    <link href="https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/master/favico.png"
+                        rel="shortcut icon">
+                `
+            } else {
+                const favIcon=document.getElementById('icon')
+
+                iconBlank()
+
+                favIcon.innerHTML=`
+                    <link href=""
+                        id="siteFavicon" rel="icon" type="image/x-icon">
+                    <link href="https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/master/favico.png"
+                        rel="shortcut icon">
+                `
+                console.log("User returned");
+                document.title = "HAMISADOG345";
+            }
+        });
+
+        function iconBlank(){
+            const iconBlank=document.getElementById('icon')
+            iconBlank.innerHTML=``
+        }
+
+        function getFavIcon(){
+            const getFavIcon=document.getElementById('icon')
+
+            getFavIcon.innerHTML=`
+                <link href=""
+                    id="siteFavicon" rel="icon" type="image/x-icon">
+                <link href="https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/master/favico.png"
+                    rel="shortcut icon">
+            `
+        }
+
+        window.addEventListener('blur', () => {
+            body.classList.add('hidden');
+            body.classList.remove('visible');
+        });
+
+        window.addEventListener('focus', () => {
+            body.classList.add('visible');
+            body.classList.remove('hidden');
+        });
+    </script>
+    <!--Game Loader Script-->
+    <script>
+        //put games here
+        //they are hardcoded because i needed to finnish this project quick
+        //still working on this
+
+        function gameLoadCSS(){
+            const gameLoadCSS=document.getElementById('gameLoadCSS')
+
+            gameLoadCSS.innerHTML=`
+                .container {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 1.5rem;
+                }
+                button { padding: 15px; cursor: pointer; background: #e74c3c; border: none; border-radius: 5px; color: white; font-weight: bold; }
+            `
+        }
+
+        const gameList = [
+            { title: "1v1 LOL", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/1v1_lol.html" },
+            { title: "war the knights", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/knights.html" },
+            { title: "Angry Birds", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/angry_birds.html" },
+            { title: "age of conflict", url: "https://github.com/HAMISADOG345/html-and-other-stuff/blob/main/ages_of_conflict.html" },
+            { title: "eaglercraft 1.12", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/Eaglercraft-1.12.2-WASM.html" },
+            { title: "eaglercraft 1.8", url: "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345.github.io/refs/heads/main/Eaglercraft-1.8-WASM.html" },
+            { title: "the backrooms", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/backrooms.html" },
+            { title: "bad piggies", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/bad_piggies.html" },
+            { title: "baldis basics", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/baldis_basics.html" },
+            { title: "big tower tiny square 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/big_tower_tiny_square.html" },
+            { title: "cookie clicker", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/cookie_clicker.html" },
+            { title: "death run 3d", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/death_run_3d.html" },
+            { title: "escape road city 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/escape_road_city_2.html" },
+            { title: "getaway shootout", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/getaway_shootout.html" },
+            { title: "getting over it", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/getting_over_it.html" },
+            { title: "gladihoppers", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gladihoppers.html" },
+            { title: "GTA vice city", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/grand_thef_auto_vice_city.html" },
+            { title: "gun mayhem", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gun_mayhem.html" },
+            { title: "gun mayhem 2", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/gun_mayhem_2.html" },
+            { title: "hollow knight", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/hollow_knight.html" },
+            { title: "level devil", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/level_devil%20(1).html" },
+            { title: "people playground", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/people_playground.html" },
+            { title: "ragdoll archers", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/ragdoll_archers.html" },
+            { title: "ragdoll hit", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/ragdoll_hit.html" },
+            { title: "retro bowl", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/retro_bowl.html" },
+            { title: "sandboxels", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/sand_game.html" },
+            { title: "short life", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/short_life.html" },
+            { title: "snow rider", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/snow_rider_3d.html" },
+            { title: "solar smash", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/solar_smash.html" },
+            { title: "the amazing strange rope police", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/strange_rope_police.html" },
+            { title: "terraria", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/terraria.html" },
+            { title: "time shooter 3 swat", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/time_shooter_3__swat.html" },
+            { title: "tung tung horrer", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/tung_sahur_horror.html" },
+            { title: "undertale", url: "https://raw.githubusercontent.com/HAMISADOG345/html-and-other-stuff/refs/heads/main/undertale.html" },
+        ];
+
+        async function startLoading(gameUrl) {
+            const newWindow = window.open('about:blank', '_blank');
+            
+            if (!newWindow) {
+                alert("POPUP BLOCKED!!!");
+                return;
+            }
+
+            newWindow.document.write("Loading game... please wait.");
+
+            try {
+                //Fetch the game data here
+                const response = await fetch(gameUrl);
+                if (!response.ok) throw new Error(response.status);
+                const html = await response.text();
+
+                newWindow.document.open();
+                newWindow.document.write(html);
+                newWindow.document.close();
+                window.close()
+                
+            } catch (error) {
+                newWindow.close();
+                console.error(error);
+                alert("SORRY: Could not load file.");
+            }
+        }
+
+        function display(){
+
+            blank()
+
+            const createScrolableContainer=document.getElementById('ButtonDiv')
+            createScrolableContainer.innerHTML=`
+                <div class="scroll-container" tabindex="0">
+                    <div id="button-container" class="btn-list"></div>
+                </div>
+            `
+
+            const container = document.getElementById('button-container');
+            gameList.forEach(game => {
+                const btn = document.createElement('button');
+                btn.textContent = `${game.title}`;
+                btn.onclick = () => startLoading(game.url);
+                container.appendChild(btn);
+            });
+        }
+    </script>
+</body>
+<!--HAVE FUN :D-->
+</html>
