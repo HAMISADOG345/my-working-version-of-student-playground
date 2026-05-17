@@ -4,10 +4,11 @@ import json
 import subprocess
 import os
 
+"""used to back up student playground with other types of files like .py .bat .cpp"""
+
 PORT = 8000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Target the inner launcher folder structure safely
 LAUNCHER_DIR = os.path.join(BASE_DIR, "minecraft_system", "launcher_core")
 
 class AdvancedLauncherHandler(http.server.SimpleHTTPRequestHandler):
@@ -22,7 +23,6 @@ class AdvancedLauncherHandler(http.server.SimpleHTTPRequestHandler):
             
             print(f"\n[SERVER API] Launching -> User: {username}, Ver: {version}")
             
-            # Form absolute paths to execution files
             batch_path = os.path.join(LAUNCHER_DIR, "minecraft.bat")
             
             env = os.environ.copy()
@@ -30,7 +30,6 @@ class AdvancedLauncherHandler(http.server.SimpleHTTPRequestHandler):
             env["MC_VERSION"] = version
             
             try:
-                # cwd=LAUNCHER_DIR isolates file actions to the target subfolder
                 subprocess.Popen(batch_path, shell=True, env=env, cwd=LAUNCHER_DIR)
                 response_msg = {"status": "success", "message": f"Launcher started for {username}!"}
                 status_code = 200

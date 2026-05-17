@@ -27,6 +27,7 @@
             background-color: var(--bg, #fff);
             border: 3px solid var(--border, #0078d4);
             width: 1000px;
+            height: 600px;
             border-radius: 12px;
             box-shadow: 5px 5px 0px var(--surface, #ccc);
             top: 50%;
@@ -281,6 +282,77 @@
         }
     </style>
 
+    <!--desktop shortcut-->
+    <style>
+        .shortcut {
+            width: 84px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: blueviolet;
+            gap: 6px;
+            padding: 8px 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            transition: background-color 0.15s, border-color 0.15s;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            box-shadow: 5px 5px 0px var(--surface);
+            background-color: var(--surface);
+            border-color: var(--border);
+            border: 3px solid var(--border);
+        }
+
+        .shortcut:hover {
+            background-color: var(--border);
+            border-color: var(--border);
+            border: 3px solid var(--border);
+        }
+
+        .shortcut:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .shortcut .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shortcut .icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .shortcut .shortcut-label {
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+    </style>
+
     <!--main CSS-->
     <style id="mainCSS">
     </style>
@@ -315,6 +387,12 @@
     <div id="windowContainer">
     </div>
 
+    <div id="desktop">
+        <main>
+            <div class="container" id="Container">
+        </main>
+    </div>
+
     <!--on startup run script-->
     <script>
         //start up
@@ -328,7 +406,7 @@
             const createDrift = document.getElementById('drifter')
             let content = ""
 
-            for (let i = 1; i < 50; i++){
+            for (let i = 1; i < 50; i++) {
                     content += `<div class="line">HAMISADOG345 HAMISADOG345 HAMISADOG345 HAMISADOG345 HAMISADOG345</div>`
             }
 
@@ -338,22 +416,8 @@
         function quotes(){ 
             const quotes = [
                 "made by HAMISADOG345",
-                "made with love",
-                "MINOR",
-                "a place for un-learning",
-                "now with more features",
-                "does anyone read these",
-                "made with the help of ham my dog",
-                "finding dad the movie",
-                "the speder the better",
-                "a man in a van with a can all colored white",
-                "i added a minecraft launcher",
-                "FIVE GUYS a deadly foreshadowing",
-                "games games games",
-                "it takes a lot of work to create this",
-                "minecraft but the villagers torcher u",
-                "things to do in ur free time ^ ^ ^",
-                "when u meet an escaped convict from ebsteins o_o"
+                "its random",
+                "see it is random"
             ];
 
             const typingElement = document.getElementById('typing-quote');
@@ -489,6 +553,98 @@
 
         function createMainHtml(){
             const mainCSS = document.getElementById('mainCSS')
+            const shortCuts = document.getElementById('desktop')
+
+            shortCuts.innerHTML = `
+                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+                                <div class="apps">
+                    <div class="shortcut" tabindex="0">
+                        <div class="icon-wrapper">
+                            <h1>app</h1>
+                        </div>
+                        <span class="shortcut-label">app index</span>
+                    </div>
+                </div>
+            `
 
             mainCSS.innerHTML = `
                 body {
@@ -618,6 +774,7 @@
             gamesPopUp()
             minecraftPopUp()
             taskBar()
+            eaglercraftModderPopUp()
         }
 
         function taskBar() {
@@ -746,6 +903,206 @@
             dragElement(win);
         }
 
+        function doctsPopUp() {
+            const winContainer = document.getElementById('windowContainer')
+            const win = document.createElement('div');
+            win.id = "doctsPopUp"
+            win.className = "win-instance"
+
+            win.innerHTML = `
+                <div id="doctsPopUpHeader" class="window-header">
+                    <span>docts</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="toggleMaximize(this.closest('.win-instance'))">◻</span>
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <main>
+                        <section class="announcements">
+                            <p>
+                                files must be run like this:
+
+                                main:
+                                    run.bat <--- start
+                                    student-playground.html <--- UI
+
+                                    tools:
+                                        ---
+
+                                    games:
+                                        ---
+                            </p>
+
+                            <p>
+                                DOUBLE CLICK THE .bat FILE IT WILL OPEN AND RUN
+
+                                IF THERE ARE ANY PROBLEMS AND U R IN KIRKLAND MIDDLE SCHOOL MEET ME AT A LUNCH
+                            </p>
+
+                            <p>
+                                HOW TO USE:
+                                open run.bat
+
+
+                                UPDATES:
+                                might add a open in native window feature
+
+
+
+
+                                files must be run like this:
+
+                                main:
+                                    run.bat <--- start
+                                    student-playground.html <--- UI
+
+                                    tools:
+                                        ---
+
+                                    games:
+                                        ---
+                                    
+
+
+
+                                this is made by HAMISADOG345
+                                U CAN USE MY CODE BUT U CANT REBRAND IT INTO ANOTHER THING UNLESS YOU PUT A LINK TO https://hamisadog345.github.io/toilet.html ON IT OR https://github.com/HAMISADOG345
+
+                                have fun playing games :D
+
+                                and un-learning...
+                            </p>
+                        </section>
+                    </main>
+                </div>
+            `;
+
+            winContainer.appendChild(win)
+
+            win.style.top = "50%";
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+
+            dragElement(win);
+        }
+
+        function eaglercraftModderPopUp() {
+            const winContainer = document.getElementById('windowContainer')
+            const win = document.createElement('div');
+            win.id = "eaglercraftModderPopUp"
+            win.className = "win-instance"
+
+            win.innerHTML = `
+                <style>
+                    .mod-btn {
+                        border: none; 
+                        border-radius: 3px;
+                        background: #218838;
+                        color: white; 
+                    }
+                </style>
+
+                <div id="eaglercraftModderPopUpHeader" class="window-header">
+                    <span>eaglercraft modder</span>
+                        <button onclick="modPopUp()" class="mod-btn">mod friendly eaglercraft click here<button>
+                    <div class="controls">
+                        <span class="control-btn" onclick="toggleMaximize(this.closest('.win-instance'))">◻</span>
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                    <div class="game-wrapper-content">
+                        <iframe src="tools/EaglerForgeInjector-main/index.html" 
+                                class="game-frame" 
+                                allowfullscreen="true"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock">
+                        </iframe>
+                    </div>
+            `;
+
+            winContainer.appendChild(win)
+
+            win.style.top = "50%";
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+
+            dragElement(win);
+        }
+
+        function modPopUp() {
+            const winContainer = document.getElementById('windowContainer');
+            if (document.getElementById('modPopUp')) return;
+
+            const win = document.createElement('div');
+            win.id = "modPopUp";
+            win.className = "win-instance";
+            win.innerHTML = `
+                <style>
+                    #modPopUp .content-area { 
+                        padding: 100px; 
+                        display: flex; 
+                        flex-direction: column; 
+                        gap: 15px; 
+                    }
+                </style>
+                <div id="modPopUpHeader" class="window-header">
+                    <span>eaglercraft downloads</span>
+                    <div class="controls">
+                        <span class="control-btn" onclick="this.closest('.win-instance').remove()">✕</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <section>
+                        <h1 class="title">mod friendly eaglercraft downloads</h1>
+                    </section>
+
+                    <section>
+                        <button class="card" onclick="eaglerForge18()"><p class="title">eaglercraft for eaglerforge 1.8<p></button>
+                        <button class="card" onclick="eaglerForge112()"><p class="title">eaglercraft for eaglerforge 1.12<p></button>
+                    </section>
+                </div>
+            `;
+            winContainer.appendChild(win);
+            win.style.top = "50%";
+            win.style.left = "50%";
+            win.style.transform = "translate(-50%, -50%)";
+            dragElement(win);
+        }
+
+        function eaglerForge18() {
+            const fileUrl18 = "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345-The-App-Version/refs/heads/main/EaglercraftX_1.8_Offline_International.html";
+
+            fetch(fileUrl18)
+                .then(response => response.blob())
+                .then(blob => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "eaglerForgeInput---1.12---.html";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+
+            .catch(err => console.error("Download failed:", err));
+        }
+
+        function eaglerForge112() {
+            const fileUrl112 = "https://raw.githubusercontent.com/HAMISADOG345/HAMISADOG345-The-App-Version/refs/heads/main/Eaglercraft_1.12_Offline_International.html";
+
+            fetch(fileUrl112)
+                .then(response => response.blob())
+                .then(blob => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "eaglerForgeInput---1.12---.html";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+
+            .catch(err => console.error("Download failed:", err));
+        }
+
         function gamesPopUp() { 
             const winContainer = document.getElementById('windowContainer'); 
             if (document.getElementById('gamesPopUp')) return; 
@@ -839,7 +1196,6 @@
                     </div>
                 </div>
                 <div class="game-wrapper-content">
-                    <!-- Sandbox prevents embedded script elements from redirecting your main tab -->
                     <iframe src="${href}" 
                             class="game-frame" 
                             allowfullscreen="true"
@@ -944,7 +1300,7 @@
         ];
     </script>
 
-    <!--eaglerforge window-->
+    <!--desktop generation-->
     <script>
 
     </script>
